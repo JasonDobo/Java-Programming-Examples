@@ -1,39 +1,9 @@
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class TestExample {
-
-    public static void main(String [ ] args){
-        int a[] =  {4,5,10,4,5};
-        arrayCheckJava8(a);
-        arrayCheck(a);
-        System.out.println(reverse("hello there"));
-        System.out.println(reverseIt("hello there"));
-        String string="hello there";
-        String reverse = new StringBuffer(string).reverse().toString();
-        System.out.println(reverse);
-
-        System.out.println("Please enter a string");
-        Scanner in = new Scanner(System.in);
-        String inpStr = in.nextLine();
-        System.out.println("Original String :" + inpStr);
-        char temp;
-        char[] arr = inpStr.toCharArray();
-        int len = arr.length;
-        for(int i=0; i<(inpStr.length())/2; i++,len--){
-            temp = arr[i];
-            arr[i] = arr[len-1];
-            arr[len-1] = temp;
-        }
-
-        System.out.println("Reverse String :" + String.valueOf(arr));
-
-        String[] array = {"earth", "mars", "mercury"};
-        Arrays.stream(array).map(s -> new StringBuilder(s).reverse().toString()).forEach(System.out::println);
-    }
 
     public static String reverse(String input){
         char[] in = input.toCharArray();
@@ -62,16 +32,14 @@ public class TestExample {
     }
 
     public static boolean arrayCheck(int a[]) {
-        int b;
-        boolean found = false;
         for(int i=0;i<a.length;i++){
             for(int j=i+1;j<a.length;j++){
                 if(a[i]==a[j]){
-                    return found = true;
+                    return true;
                 }
             }
         }
-        return found;
+        return false;
     }
 
     public static boolean arrayCheckJava8(int a[]) {
@@ -116,5 +84,58 @@ public class TestExample {
             }
         }
         return max;
+    }
+
+    public int rowSumOddNumbers(int n) {
+        int mid = n * n;
+        int result = 0;
+
+        if (mid % 2 == 0) {
+            int count = n / 2;
+
+            for (int i = 0; i < count; i++) {
+                result = result + (2 * mid);
+            }
+        } else {
+            int count = (n - 1) / 2;
+            result = result + mid;
+
+            for (int i = 0; i < count; i++) {
+                result = result + (2 * mid);
+            }
+        }
+
+        return result;
+    }
+
+    public int rowSumOddNumbersMath(int n) {
+        return n * n * n;
+    }
+
+    public Boolean leapYear(int y) {
+        if (y == 0) {
+            return false;
+        } else if (y %400 == 0) {
+            return true;
+        } else if (y %4 == 0 && y %100 != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public int maxDiffForNumbersInArray(int[] numbers) {
+        int max = numbers[0];
+        int min = numbers[0];
+
+        for (int number : numbers) {
+            if (number > max) {
+                max = number;
+            } else if (number < min) {
+                min = number;
+            }
+        }
+
+        return max - min;
     }
 }

@@ -90,4 +90,31 @@ public class TestExampleTest {
         int [] numbers2 = {-50, 100, 20, -40};
         Assert.assertEquals(150, testExample.maxDiffAdjacentNumbers(numbers2));
     }
+
+    @Test
+    public void oddNumbers()  throws Exception {
+        Assert.assertEquals(testExample.rowSumOddNumbers(3), 27);
+    }
+
+    @Test
+    public void oddNumbersBest()  throws Exception {
+        Assert.assertEquals(testExample.rowSumOddNumbersMath(3), 27);
+    }
+
+    @Test
+    public void leapYear() throws Exception {
+        Assert.assertTrue(testExample.leapYear(1904));
+        Assert.assertFalse(testExample.leapYear(1900));
+        Assert.assertTrue(testExample.leapYear(2000));
+        Assert.assertFalse(testExample.leapYear(1954));
+        Assert.assertFalse(testExample.leapYear(0));
+    }
+
+    @Test
+    public void largestDiff() throws Exception {
+        int[] a =  {1, 100, 2, 105, -10, 30, 100};
+        Assert.assertEquals(115, testExample.maxDiffForNumbersInArray(a));
+        int[] b = {1, 100, 2, 105, 10, 30, 80};
+        Assert.assertEquals(104, testExample.maxDiffForNumbersInArray(b));
+    }
 }
