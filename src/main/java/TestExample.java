@@ -7,8 +7,9 @@ import java.util.stream.Collectors;
 public class TestExample {
 
     public static void main(String [ ] args){
-        arrayCheckJava8();
-        arrayCheck();
+        int a[] =  {4,5,10,4,5};
+        arrayCheckJava8(a);
+        arrayCheck(a);
         System.out.println(reverse("hello there"));
         System.out.println(reverseIt("hello there"));
         String string="hello there";
@@ -60,12 +61,11 @@ public class TestExample {
         return dest.toString();
     }
 
-    public static boolean arrayCheck(){
-        int a[] =  {4,5,10,4,5};
+    public static boolean arrayCheck(int a[]) {
         int b;
         boolean found = false;
         for(int i=0;i<a.length;i++){
-            for(int j=1;j<a.length;j++){
+            for(int j=i+1;j<a.length;j++){
                 if(a[i]==a[j]){
                     return found = true;
                 }
@@ -74,9 +74,8 @@ public class TestExample {
         return found;
     }
 
-    public static boolean arrayCheckJava8(){
+    public static boolean arrayCheckJava8(int a[]) {
         boolean found=false;
-        int a[] =  {4,5,10,4,5};
         Set<Integer> s = new HashSet<>();
         for (int name : a) {
             if (s.add(name) == found)
@@ -88,9 +87,8 @@ public class TestExample {
         return found;
     }
 
-    public static boolean streamArrys(){
+    public static boolean streamArrys(Integer[] numbers) {
         boolean duplicate=false;
-        Integer[] numbers = new Integer[] { 1, 2, 1, 3, 4, 4 };
         Set<Integer> allItems = new HashSet<>();
         Set<Integer> duplicates = Arrays.stream(numbers)
                 .filter(n -> !allItems.add(n)) //Set.add() returns false if the item was already in the set.
@@ -101,5 +99,22 @@ public class TestExample {
             return duplicate;
         }
         return duplicate;
+    }
+
+    public int maxDiffAdjacentNumbers(int[] numbers) {
+        if (numbers.length < 2) {
+            return 0;
+        }
+        if (numbers.length == 2) {
+            return Math.abs(numbers[1] - numbers[0]);
+        }
+        int max = Math.abs(numbers[1] - numbers[0]);
+        for (int i = 2; i < numbers.length; i++) {
+            int diff = Math.abs(numbers[i-1] - numbers[i]);
+            if (diff > max) {
+                max = diff;
+            }
+        }
+        return max;
     }
 }
