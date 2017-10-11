@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -137,5 +138,119 @@ public class TestExample {
         }
 
         return max - min;
+    }
+
+    public void fibonacci() {
+        BigInteger first = new BigInteger("0");
+        BigInteger second = new BigInteger("1");
+
+        for(int i = 0; i < 100; i++) {
+            if(i == 0){
+                System.out.println(first);
+                continue;
+            }
+
+            if(i == 1) {
+                System.out.println(second);
+                continue;
+            }
+
+            BigInteger current = first.add(second);
+            first = second;
+            second = current;
+            System.out.println(second);
+        }
+
+    }
+
+    public boolean leapYearAlt(int year) {
+        if (year %400 == 0) {
+            return true;
+        } else if (year %4 == 0 && year %100 != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+//    public boolean isPalindrome(String value) {
+//        String result = value.replaceAll("[-+.^:,' !]","");
+//        int start = 0;
+//        int end = result.length() -1;
+//
+//        char[] chars = result.toLowerCase().toCharArray();
+//
+//        for (int i = 0; i < end; i++) {
+//            if (chars[start + i] != chars[end - i]) {
+//                return false;
+//            }
+//        }
+//
+//        return true;
+//    }
+//
+//    public boolean containsDuplicates(String value) {
+//        char[] chars = value.toCharArray();
+//        boolean result = false;
+//
+//        for(int i = 0; i < chars.length; i++) {
+//            for(int j = i+1; j < chars.length; j++) {
+//                if(chars[i] == chars[j]) {
+//                    result = true;
+//                    break;
+//                }
+//            }
+//        }
+//
+//        return result;
+//    }
+
+    public boolean isPalindrome(String value) {
+        boolean flag = true;
+
+        String s = "NiagarO roar again!".toLowerCase().replaceAll("\\W", "");
+        int j=0;
+        int k = s.length() - 1;
+        while(j < s.length() / 2) {
+            if (s.charAt(j++) != s.charAt(k--)) {
+                flag = false;
+            }
+        }
+        return flag;
+    }
+
+    public boolean containsDuplicates(String value) {
+        boolean foundDuplicate = false;
+        int stringLength = value.length();
+        Set<Character> characters = new HashSet<>(stringLength);
+        for (int i = 0; i < stringLength; i++)
+        {
+            Character c = Character.valueOf(value.charAt(i));
+            if (characters.contains(c))
+            {
+                foundDuplicate = true;
+                break;
+            }
+            else
+            {
+                characters.add(c);
+            }
+        }
+        return foundDuplicate;
+    }
+
+    public int pyramidSum(int row) {
+        int result = 0;
+        int rowNum = 1;
+
+        for (int i = 0; i < row; i++) {
+            rowNum = rowNum + i;
+        }
+
+        for (int i = 0; i < row; i++) {
+            result = result + (rowNum + i);
+        }
+
+        return result;
     }
 }

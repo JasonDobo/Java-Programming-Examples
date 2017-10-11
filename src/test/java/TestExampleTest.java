@@ -117,4 +117,44 @@ public class TestExampleTest {
         int[] b = {1, 100, 2, 105, 10, 30, 80};
         Assert.assertEquals(104, testExample.maxDiffForNumbersInArray(b));
     }
+
+    @Test
+    public void Fib() throws Exception {
+        testExample.fibonacci();
+    }
+
+    @Test
+    public void palindrome() throws Exception {
+        String test = "Madam in Eden, I'm Adam";
+        Assert.assertTrue(testExample.isPalindrome(test));
+        test = "Was founded with a single purpose";
+        Assert.assertFalse(testExample.isPalindrome(test));
+        test = "A man, a plan, a canal - Panama!";
+        Assert.assertTrue(testExample.isPalindrome(test));
+        test = "Pull up, Eva, we're here, wave, pull up";
+        Assert.assertTrue(testExample.isPalindrome(test));
+        test = "Madam in Edan, I'm Adam";
+        Assert.assertFalse(testExample.isPalindrome(test));
+    }
+
+    @Test
+    public void duplicateLetters() throws Exception {
+        System.out.println("Check if a string contains any duplicate values");
+
+        Assert.assertFalse(testExample.containsDuplicates("earth"));
+        Assert.assertTrue(testExample.containsDuplicates("babylon"));
+        Assert.assertTrue(testExample.containsDuplicates("europe"));
+        Assert.assertFalse(testExample.containsDuplicates("care"));
+    }
+
+    @Test
+    public void numberPyramid() throws Exception {
+        Assert.assertEquals(testExample.pyramidSum(1), 1);
+        Assert.assertEquals(testExample.pyramidSum(2), 5);
+        Assert.assertEquals(testExample.pyramidSum(3), 15);
+        Assert.assertEquals(testExample.pyramidSum(4), 34);
+        Assert.assertEquals(testExample.pyramidSum(5), 65);
+        Assert.assertEquals(testExample.pyramidSum(6), 111);
+        Assert.assertEquals(testExample.pyramidSum(14), 1379);
+    }
 }
