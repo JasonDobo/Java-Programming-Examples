@@ -149,12 +149,25 @@ public class TestExampleTest {
 
     @Test
     public void numberPyramid() throws Exception {
-        Assert.assertEquals(testExample.pyramidSum(1), 1);
-        Assert.assertEquals(testExample.pyramidSum(2), 5);
-        Assert.assertEquals(testExample.pyramidSum(3), 15);
-        Assert.assertEquals(testExample.pyramidSum(4), 34);
-        Assert.assertEquals(testExample.pyramidSum(5), 65);
-        Assert.assertEquals(testExample.pyramidSum(6), 111);
-        Assert.assertEquals(testExample.pyramidSum(14), 1379);
+        Assert.assertEquals(testExample.consecutiveNumberPyramid(1), 1);
+        Assert.assertEquals(testExample.consecutiveNumberPyramid(2), 5);
+        Assert.assertEquals(testExample.consecutiveNumberPyramid(3), 15);
+        Assert.assertEquals(testExample.consecutiveNumberPyramid(4), 34);
+        Assert.assertEquals(testExample.consecutiveNumberPyramid(5), 65);
+        Assert.assertEquals(testExample.consecutiveNumberPyramid(6), 111);
+        Assert.assertEquals(testExample.consecutiveNumberPyramid(14), 1379);
+    }
+
+    @Test
+    public void highAndLow() throws Exception {
+        Assert.assertTrue(testExample.highAndLow("1 2 3 4 5").equals("5 1"));
+        Assert.assertTrue(testExample.highAndLow("1 2 -3 4 5").equals("5 -3"));
+        Assert.assertTrue(testExample.highAndLow("1 9 3 4 -5").equals("9 -5"));
+        Assert.assertTrue(testExample.highAndLow("14 9 3 4 12").equals("14 3"));
+    }
+
+    @Test
+    public void stream() throws Exception {
+        testExample.getJsonFromUrl("spiderman");
     }
 }
