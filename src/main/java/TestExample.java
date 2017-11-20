@@ -1,3 +1,4 @@
+import com.google.gson.*;
 import com.oracle.javafx.jmx.json.JSONReader;
 import jdk.nashorn.internal.parser.JSONParser;
 
@@ -180,70 +181,36 @@ public class TestExample {
         }
     }
 
-//    public boolean isPalindrome(String value) {
-//        String result = value.replaceAll("[-+.^:,' !]","");
-//        int start = 0;
-//        int end = result.length() -1;
-//
-//        char[] chars = result.toLowerCase().toCharArray();
-//
-//        for (int i = 0; i < end; i++) {
-//            if (chars[start + i] != chars[end - i]) {
-//                return false;
-//            }
-//        }
-//
-//        return true;
-//    }
-//
-//    public boolean containsDuplicates(String value) {
-//        char[] chars = value.toCharArray();
-//        boolean result = false;
-//
-//        for(int i = 0; i < chars.length; i++) {
-//            for(int j = i+1; j < chars.length; j++) {
-//                if(chars[i] == chars[j]) {
-//                    result = true;
-//                    break;
-//                }
-//            }
-//        }
-//
-//        return result;
-//    }
-
     public boolean isPalindrome(String value) {
-        boolean flag = true;
+        String result = value.replaceAll("[-+.^:,' !]","");
+        int start = 0;
+        int end = result.length() -1;
 
-        String s = "NiagarO roar again!".toLowerCase().replaceAll("\\W", "");
-        int j=0;
-        int k = s.length() - 1;
-        while(j < s.length() / 2) {
-            if (s.charAt(j++) != s.charAt(k--)) {
-                flag = false;
+        char[] chars = result.toLowerCase().toCharArray();
+
+        for (int i = 0; i < end; i++) {
+            if (chars[start + i] != chars[end - i]) {
+                return false;
             }
         }
-        return flag;
+
+        return true;
     }
 
     public boolean containsDuplicates(String value) {
-        boolean foundDuplicate = false;
-        int stringLength = value.length();
-        Set<Character> characters = new HashSet<>(stringLength);
-        for (int i = 0; i < stringLength; i++)
-        {
-            Character c = Character.valueOf(value.charAt(i));
-            if (characters.contains(c))
-            {
-                foundDuplicate = true;
-                break;
-            }
-            else
-            {
-                characters.add(c);
+        char[] chars = value.toCharArray();
+        boolean result = false;
+
+        for(int i = 0; i < chars.length; i++) {
+            for(int j = i+1; j < chars.length; j++) {
+                if(chars[i] == chars[j]) {
+                    result = true;
+                    break;
+                }
             }
         }
-        return foundDuplicate;
+
+        return result;
     }
 
     public int consecutiveNumberPyramid(int row) {
@@ -300,7 +267,7 @@ public class TestExample {
 //        jason.
         String[] split = jason.split("Title\":\"([a-zA-Z0-9\\s\\:\\,\\']+)\",");
 
-        JSONParser jp = new JSONParser();
+//        JSONParser jp = new JSONParser();
 
         int i = jason.indexOf("\"total_pages\":");
         int end = jason.indexOf(",\"data\":");
@@ -310,22 +277,20 @@ public class TestExample {
         for(int count = 1; count <= j; count++) {
 
         }
-
-
-
     }
 }
 
-public class Solution {
+class Solution {
     /*
      * Complete the function below.
      */
     public static ArrayList<String> title = new ArrayList<>();
-    public static int counter =0;
+    public static int counter = 0;
+
     static String[] getMovieTitles(String substr) {
         String url = "https://jsonmock.hackerrank.com/api/movies/search/?Title=" + substr;
         StringBuffer response = new StringBuffer();
-        try{
+        try {
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             // optional default is GET
@@ -338,7 +303,7 @@ public class Solution {
                 response.append(inputLine);
             }
             in.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         //print result
@@ -350,9 +315,9 @@ public class Solution {
             String result = jObject.get("Title").getAsString();
             title.add(result);
         }
-        while (counter == 0){
+        while (counter == 0) {
             counter++;
-            getMovieTitles(substr+"&page=2");
+            getMovieTitles(substr + "&page=2");
         }
         Collections.sort(title);
         for (String s : title) {
@@ -363,3 +328,4 @@ public class Solution {
         stringTitle = title.toArray(stringTitle);
         return stringTitle;
     }
+}
