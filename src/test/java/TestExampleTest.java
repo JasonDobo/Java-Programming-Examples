@@ -18,6 +18,37 @@ public class TestExampleTest {
     }
 
     @Test
+    public void wiki() throws Exception {
+        int i = testExample.getTopicCount2("pizza");
+        int j = testExample.getTopicCount("pizza");
+        Assert.assertTrue(i==j);
+    }
+
+    @Test
+    public void stepPyramid() throws Exception {
+        Assert.assertEquals(testExample.stepNumberPyramid(1), 1);
+        Assert.assertEquals(testExample.stepNumberPyramid(2), 2);
+        Assert.assertEquals(testExample.stepNumberPyramid(3), 7);
+        Assert.assertEquals(testExample.stepNumberPyramid(4), 11);
+        Assert.assertEquals(testExample.stepNumberPyramid(5), 24);
+        Assert.assertEquals(testExample.stepNumberPyramid(6), 33);
+        Assert.assertEquals(testExample.stepNumberPyramid(7), 58);
+        Assert.assertEquals(testExample.stepNumberPyramid(8), 74);
+        Assert.assertEquals(testExample.stepNumberPyramid(9), 115);
+        Assert.assertEquals(testExample.stepNumberPyramid(97), 116473);
+        Assert.assertEquals(testExample.stepNumberPyramid(213), 1219372);
+        // 1 = 1 + 1
+        // 2 = 2 + 1
+        // 3 4 = 7 + 2
+        // 5 6 = 11 + 2
+        // 7 8 9 = 24 + 3
+        // 10 11 12 = 33 + 3
+        // 13 14 15 16 = 58 + 4
+        // 17 18 19 20 = 74 + 4
+        // 21 22 23 24 25 = 115 + 5
+    }
+
+    @Test
     public void reverse() throws Exception {
         System.out.println("Reverse a String which is passed in");
 
@@ -156,6 +187,7 @@ public class TestExampleTest {
         Assert.assertEquals(testExample.consecutiveNumberPyramid(5), 65);
         Assert.assertEquals(testExample.consecutiveNumberPyramid(6), 111);
         Assert.assertEquals(testExample.consecutiveNumberPyramid(14), 1379);
+        Assert.assertEquals(testExample.consecutiveNumberPyramid(99), 485199);
     }
 
     @Test

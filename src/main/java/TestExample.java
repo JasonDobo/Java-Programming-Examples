@@ -1,15 +1,16 @@
 import com.google.gson.*;
-import com.oracle.javafx.jmx.json.JSONReader;
-import jdk.nashorn.internal.parser.JSONParser;
-
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class TestExample {
@@ -228,6 +229,60 @@ public class TestExample {
         return result;
     }
 
+    public int temp(int row) {
+        /*
+         * Write your code here.
+         */
+        int i, j,total=0, num=1;
+        for(i=0; i<row; i++)
+        {
+            for(j=0; j<=i; j++)
+            {
+                System.out.print(num+ " ");
+                if (i == row-1) {
+                    total = total + num;
+                }
+                num++;
+            }
+            System.out.println();
+        }
+        return total;
+
+//        /*
+//         * Write your code here.
+//         */
+//        int i, j,total=0, num=1;
+//        for(i=0; i<=row; i++)
+//        {
+//            for(j=0; j<=i; j++)
+//            {
+//                System.out.print(num+ " ");
+//                num = num + 1;
+//            }
+//            System.out.println();
+//        }
+//        return num;
+    }
+
+    public int stepNumberPyramid(int row) {
+        int columns = 1;
+        int rowStart = 1;
+        int rowTotal = 0;
+        for (int i = 1; i < row; i++) {
+            rowStart = rowStart + columns;
+
+            if (i % 2 == 0) {
+                columns++;
+            }
+        }
+
+        for (int j = 0; j < columns; j++) {
+            rowTotal = rowTotal + rowStart + j;
+        }
+
+        return rowTotal;
+    }
+
     public String highAndLow(String num) {
         String[] chars = num.trim().split(" ");
         int high = Integer.valueOf(chars[0]);
@@ -278,6 +333,118 @@ public class TestExample {
 
         }
     }
+
+    static int getTopicCount2(String topic) throws IOException {
+        int sum = 0;
+        Gson gson = new Gson();
+        String url = "https://en.wikipedia.org/w/api.php?action=parse&section=0&prop=text&format=json&page=" + topic;
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        String resString = response.toString();
+        //System.out.println(resString);
+
+        do{
+            int index = resString.indexOf(topic);
+            if (index!=0){
+                sum++;
+                resString = resString.substring(index+1);
+            }
+        } while (resString.indexOf(topic)>=0);
+
+        System.out.println(sum);
+        return sum;
+    }
+
+    public static final String BASE_WIKI_URL = "https://en.wikipedia.org/w/api.php?action=parse&section=0&prop=text&format=json&page=";
+
+    static int getTopicCount(final String topic) throws IOException { final String url = BASE_WIKI_URL + topic;
+        final BufferedReader rd = getBufferedReader(url);
+        return countTopicsFromReader(rd, topic);
+    }
+
+    static BufferedReader getBufferedReader(final String url) throws IOException { final InputStream input = new URL(url).openStream();
+        return new BufferedReader(new InputStreamReader(input));
+    }
+
+    static int countTopicsFromReader(final BufferedReader rd, final String topic) throws IOException {
+        String line;
+        int total = 0;
+        final Pattern p = Pattern.compile(topic); while ((line = rd.readLine()) != null) {
+            total += getOccurancesInString(p, line); }
+        return total;
+    }
+
+    private class MyJson {
+        String total;
+    }
+
+    static int getNumberOfMovies(String substr) throws MalformedURLException, IOException {
+        URL url = new URL("https://jsonmock.hackerrank.com/api/movies/search/?Title="+substr);
+        InputStreamReader reader = new InputStreamReader(url.openStream());
+        MyJson json = new Gson().fromJson(reader, MyJson.class);
+
+        int result = Integer.parseInt(json.total);
+        return result;
+    }
+
+
+    static int getOccurancesInString(final Pattern p, final String str){
+        final Matcher m = p.matcher(str);
+        int count = 0;
+        while (m.find()) {
+            count +=1;
+        }
+        return count;
+    }
+
+    static int getNumberOfMoviesAlt(String substr) throws IOException {
+        /*
+         * Endpoint: "https://jsonmock.hackerrank.com/api/movies/search/?Title=substr"
+         */
+        int result = 0;
+        JsonParser jsonParser = new JsonParser();
+        System.out.println("Sending :: " + "https://jsonmock.hackerrank.com/api/movies/search/?Title=" + substr);
+        URL obj = new URL("https://jsonmock.hackerrank.com/api/movies/search/?Title=" + substr);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestMethod("GET");
+        int responseCode = con.getResponseCode();
+        System.out.println("GET Response Code :: " + responseCode);
+        if (responseCode == HttpURLConnection.HTTP_OK) { // success
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                    con.getInputStream()));
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            // print result
+            System.out.println(response.toString());
+            JsonElement jelement = new JsonParser().parse(response.toString());
+            JsonObject  jobject = jelement.getAsJsonObject();
+            // JsonObject jobj = new Gson().fromJson(response.toString());
+            result = jobject.get("total").getAsInt();
+            System.out.println("Look what I got " + result);
+
+        } else {
+            System.out.println("GET request not worked");
+        }
+        return result;
+    }
 }
 
 class Solution {
@@ -327,5 +494,38 @@ class Solution {
         String[] stringTitle = new String[title.size()];
         stringTitle = title.toArray(stringTitle);
         return stringTitle;
+    }
+
+    static int getTopicCount(String topic) throws IOException {
+        int sum = 0;
+        Gson gson = new Gson();
+        String url = "https://en.wikipedia.org/w/api.php?action=parse&section=0&prop=text&format=json&page=" + topic;
+
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestMethod("GET");
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        String resString = response.toString();
+        //System.out.println(resString);
+
+        do{
+            int index = resString.indexOf(topic);
+            if (index!=0){
+                sum++;
+                resString = resString.substring(index=1);
+            }
+        } while (resString.indexOf(topic)!=0);
+
+        System.out.println(sum);
+        return sum;
     }
 }
